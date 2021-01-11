@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const SignUp = () => {
   const emailRef = useRef();

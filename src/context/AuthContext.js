@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = (props) => {
   const [currentUser, setUser] = useState();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
       setUser(u);
@@ -13,9 +14,15 @@ const AuthProvider = (props) => {
 
     return unsubscribe;
   }, []);
+
   const signUpWithEmail = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
+
+  const loginWithEmail = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
+  };
+
   const signInWithGoogle = () => {
     auth
       .signInWithPopup(firebase.auth.GoogleAuthProvider())
@@ -26,6 +33,7 @@ const AuthProvider = (props) => {
         console.log(err);
       });
   };
+
   const signOut = () => {
     return auth.signOut();
   };
@@ -35,6 +43,7 @@ const AuthProvider = (props) => {
       value={{
         currentUser,
         signUpWithEmail,
+        loginWithEmail,
         signInWithGoogle,
         signOut,
       }}
