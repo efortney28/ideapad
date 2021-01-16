@@ -40,6 +40,27 @@ const ProjectsProvider = (props) => {
       });
   };
 
+  const editProject = async (id, title, description) => {
+    const updatedProj = await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("projects")
+      .doc(id)
+      .update({
+        title: title,
+        description: description,
+      });
+  };
+
+  const deleteProject = async (id) => {
+    const deletedProject = await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("projects")
+      .doc(id)
+      .delete();
+  };
+
   return (
     <ProjectsContext.Provider
       value={{
@@ -47,6 +68,8 @@ const ProjectsProvider = (props) => {
         currentProject,
         createProject,
         getProjects,
+        editProject,
+        deleteProject,
       }}
     >
       {props.children}

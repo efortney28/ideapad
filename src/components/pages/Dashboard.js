@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useProjects } from "../../context/ProjectsContext";
 import CreateProject from "../CreateProject";
+import Project from "../Project";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
-  const { projects, currentProject, getProjects } = useProjects();
+  const { projects, getProjects } = useProjects();
 
   useEffect(() => {
     if (currentUser) {
@@ -25,10 +26,7 @@ const Dashboard = () => {
           <h3>Your Projects</h3>
           {projects &&
             projects.map((project, ind) => (
-              <section className="project" key={ind}>
-                <h4 className="project-title">{project.title}</h4>
-                <p className="project-description">{project.description}</p>
-              </section>
+              <Project project={project} key={ind} />
             ))}
         </section>
       </section>
