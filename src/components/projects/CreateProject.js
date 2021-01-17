@@ -1,39 +1,36 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
+import { Button, Input } from "antd";
 
 const CreateProject = () => {
-  const titleRef = useRef();
-  const descriptionRef = useRef();
   const { createProject } = useProjects();
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    createProject(titleRef.current.value, descriptionRef.current.value);
-    titleRef.current.value = null;
-    descriptionRef.current.value = null;
+    createProject(title, description);
+    setTitle(null);
+    setDescription(null);
   };
 
   return (
     <section className="create-project">
-      <h3>New project</h3>
-      <form className="project-form">
-        <input
-          className="project-input"
-          type="text"
-          ref={titleRef}
-          placeholder="Project Title"
-        />
-        <input
-          className="project-input"
-          type="text"
-          ref={descriptionRef}
-          placeholder="Project Description"
-        />
-        <button className="submit" onClick={handleSubmit}>
-          Add New Project
-        </button>
-      </form>
+      <Input
+        className="project-input"
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Project Title"
+      />
+      <Input
+        className="project-input"
+        type="text"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Project Description"
+      />
     </section>
   );
 };

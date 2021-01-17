@@ -1,0 +1,38 @@
+@import "~antd/dist/antd.css";
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins-Light"), url(../fonts/Poppins-Light.ttf) format("ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins-Regular"), url(../fonts/Poppins-Regular.ttf) format("ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins-Medium"), url(../fonts/Poppins-Medium.ttf) format("ttf");
+}
+:root {
+  --bright-blue: #118ab2;
+  --bg-color: #181818;
+  --green: #06d6a0;
+  --yellow: #ffd166;
+  --red: #ef476f;
+  --text-color: #ccc;
+}
+/* body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color);
+} */
+
+html {
+  font-family: "Poppins";
+}

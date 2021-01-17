@@ -1,0 +1,11 @@
+.dashboard {
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 90%;
+  text-align: center;
+}
+.ant-btn-primary {
+  background-color: var(--bright-blue) !important;
+}

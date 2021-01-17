@@ -1,0 +1,29 @@
+.nav {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bright-blue);
+}
+.brand {
+  margin: 1rem;
+  font-size: 1.2rem;
+  color: white;
+}
+.auth-button {
+  margin: 1rem 0;
+  font-size: 1rem;
+  font-weight: 500 !important;
+  color: white !important;
+}
+.auth-button:hover {
+  color: blue;
+}
+.auth-button:active {
+  color: blue;
+}
+#divider {
+  color: white;
+  padding: 0;
+  margin: 0;
+}

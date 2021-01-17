@@ -1,0 +1,28 @@
+.signup-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 90%;
+  padding-top: 3rem;
+}
+.auth-input {
+  margin: 1rem !important;
+  padding: 0.5rem !important;
+}
+.submit {
+  margin: 1rem;
+  background-color: var(--bright-blue);
+  border: none !important;
+}
+
+@media screen and (min-width: 1000px) {
+  .signup-form {
+    max-width: 50%;
+  }
+  .auth-input {
+    padding: 1rem !important;
+  }
+}
