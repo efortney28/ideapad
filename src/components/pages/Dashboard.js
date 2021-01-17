@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useProjects } from "../../context/ProjectsContext";
-import CreateProject from "../CreateProject";
-import Project from "../Project";
+import CreateProject from "../projects/CreateProject";
+import Project from "../projects/Project";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useProjects } from "../context/ProjectsContext";
+import { useProjects } from "../../context/ProjectsContext";
 
 const CreateProject = () => {
   const titleRef = useRef();
