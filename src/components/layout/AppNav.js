@@ -1,11 +1,19 @@
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "antd";
+import { useAlerts } from "../../context/AlertsContext";
+import Alert from "../layout/Alert";
 import "../../styles/nav.css";
 
 const AppNav = () => {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
+  const { alert, createAlert } = useAlerts();
+
+  const handleSignOut = () => {
+    signOut();
+    createAlert("Success", "You have been signed out.");
+  };
 
   const redirectToLogin = () => {
     history.push("/login");
@@ -19,7 +27,7 @@ const AppNav = () => {
     <nav className="nav">
       <section className="brand">IdeaPad</section>
       {currentUser ? (
-        <Button className="auth-button" type="text" onClick={signOut}>
+        <Button className="auth-button" type="text" onClick={handleSignOut}>
           Sign Out
         </Button>
       ) : (
