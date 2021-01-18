@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFeatures } from "../../context/FeaturesContext";
-import { Button, Input, List, Modal } from "antd";
+import { Button, Input, List, Modal, Popconfirm } from "antd";
 import { CheckOutlined, DeleteFilled } from "@ant-design/icons";
 import "../../styles/features.css";
 import { useAlerts } from "../../context/AlertsContext";
@@ -114,11 +114,14 @@ const Features = (props) => {
                   title={item.title}
                   description={item.description}
                 />
-                <DeleteFilled
-                  className="action"
-                  id="deleteFeature"
-                  onClick={() => handleDelete(item.id)}
-                />
+                <Popconfirm
+                  title="Are you sure you want to delete this feature?"
+                  onConfirm={() => handleDelete(item.id)}
+                  okText="Delete"
+                  cancelText="Cancel"
+                >
+                  <DeleteFilled id="deleteFeature" className="action" />
+                </Popconfirm>
                 <CheckOutlined
                   className={"check " + (item.completed ? "completed" : "")}
                   onClick={() => handleCompletedToggle(item.id, item.completed)}
