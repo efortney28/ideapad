@@ -1,0 +1,11 @@
+.check {
+  font-size: 1.5rem;
+}
+.completed {
+  color: var(--green) !important;
+}
+.ant-list-item-meta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}

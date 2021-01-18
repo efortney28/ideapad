@@ -69,6 +69,40 @@ const FeaturesProvider = (props) => {
     }
   };
 
+  const markAsCompleted = async (projId, featureId, prevCompleted) => {
+    if (prevCompleted) {
+      try {
+        await db
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("projects")
+          .doc(projId)
+          .collection("features")
+          .doc(featureId)
+          .update({
+            completed: false,
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        await db
+          .collection("users")
+          .doc(currentUser.uid)
+          .collection("projects")
+          .doc(projId)
+          .collection("features")
+          .doc(featureId)
+          .update({
+            completed: true,
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
   return (
     <FeaturesContext.Provider
       value={{
@@ -76,6 +110,7 @@ const FeaturesProvider = (props) => {
         getFeatures,
         editFeature,
         deleteFeature,
+        markAsCompleted,
       }}
     >
       {props.children}

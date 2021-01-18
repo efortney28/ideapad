@@ -1,17 +1,26 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
-import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import FeaturesProvider from "../../context/FeaturesContext";
 import CreateFeature from "../features/CreateFeature";
 import Features from "../features/Features";
+import { Button, Card, Input, Modal, Popconfirm } from "antd";
+import "../../styles/project.css";
+import {
+  DeleteFilled,
+  EditFilled,
+  PlusSquareOutlined,
+} from "@ant-design/icons";
 
 const Project = (props) => {
   const { id, title, description } = props.project;
-  const titleRef = useRef();
-  const descriptionRef = useRef();
-  const { editProject, deleteProject } = useProjects();
+  const [newTitle, setNewTitle] = useState();
+  const [newDescription, setNewDescription] = useState();
+  const { editProject, deleteProject, createFeature } = useProjects();
   const [edit, setEdit] = useState(false);
   const [feature, setFeature] = useState(false);
+  const [featureTitle, setFeatureTitle] = useState();
+  const [featureDescription, setFeatureDescription] = useState();
+  const { Meta } = Card;
 
   const handleEdit = () => {
     setEdit((prevState) => !prevState);
@@ -21,54 +30,113 @@ const Project = (props) => {
     setFeature((prevState) => !prevState);
   };
 
+  const handleOk = () => {
+    createFeature(id, featureTitle, featureDescription);
+    setFeatureTitle(null);
+    setFeatureDescription(null);
+    setFeature(false);
+  };
+
+  const handleCancel = () => {
+    setFeature(false);
+  };
+
   const handleDelete = () => {
     deleteProject(id);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(titleRef);
-    editProject(id, titleRef.current.value, descriptionRef.current.value);
+    editProject(id, newTitle, newDescription);
     setEdit(false);
   };
 
   if (edit) {
     return (
       <section className="project-form">
-        <input
+        <Input
           className="project-input"
           type="text"
-          ref={titleRef}
-          placeholder="Project Title"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          placeholder={title}
+          default={title}
         />
 
-        <input
+        <Input
           className="project-input"
           type="text"
-          ref={descriptionRef}
-          placeholder="Project Description"
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+          placeholder={description}
         />
 
-        <button className="submit" onClick={handleSubmit}>
+        <Button type="primary" className="submit" onClick={handleSubmit}>
           Update Project
-        </button>
+        </Button>
       </section>
     );
   }
 
   return (
     <section className="project">
-      <h4 className="project-title">{title}</h4>
-      <p className="project-description">{description}</p>
-      <EditFilled onClick={handleEdit} />
-      <DeleteFilled onClick={handleDelete} />
-      <button onClick={handleNewFeatureClick}>Add Feature</button>
-      {feature && (
-        <CreateFeature id={id} handleNewFeatureClick={handleNewFeatureClick} />
-      )}
-      <FeaturesProvider>
-        <Features id={id} />
-      </FeaturesProvider>
+      <Card>
+        <Meta title={title} description={description} />
+        <section className="project-actions">
+          <EditFilled id="edit" className="action" onClick={handleEdit} />
+          <Popconfirm
+            title="Are you sure you want to delete this project?"
+            onConfirm={handleDelete}
+            okText="Delete"
+            cancelText="Cancel"
+          >
+            <DeleteFilled id="delete" className="action" />
+          </Popconfirm>
+          <span className="add-ft-btn">
+            <PlusSquareOutlined
+              id="add"
+              className="action"
+              onClick={handleNewFeatureClick}
+            />{" "}
+          </span>
+        </section>
+        {feature && (
+          <Modal
+            title="Create New Feature"
+            visible={feature}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Cancel
+              </Button>,
+              <Button key="submit" type="primary" onClick={handleOk}>
+                Add Feature
+              </Button>,
+            ]}
+          >
+            <section>
+              <Input
+                className="project-input"
+                type="text"
+                value={featureTitle}
+                onChange={(e) => setFeatureTitle(e.target.value)}
+                placeholder="Feature Title"
+              />
+              <Input
+                className="project-input"
+                type="text"
+                value={featureDescription}
+                onChange={(e) => setFeatureDescription(e.target.value)}
+                placeholder="Feature Description"
+              />
+            </section>
+          </Modal>
+        )}
+        <FeaturesProvider>
+          <Features id={id} />
+        </FeaturesProvider>
+      </Card>
     </section>
   );
 };

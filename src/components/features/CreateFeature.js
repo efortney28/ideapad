@@ -1,39 +1,37 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
+import { Input } from "antd";
 
 const CreateFeature = (props) => {
-  const titleRef = useRef();
-  const descriptionRef = useRef();
   const { createFeature } = useProjects();
   const { id, handleNewFeatureClick } = props;
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    createFeature(id, titleRef.current.value, descriptionRef.current.value);
-    titleRef.current.value = null;
-    descriptionRef.current.value = null;
-    handleNewFeatureClick();
+    createFeature(id, title, description);
+    title = null;
+    description = null;
   };
 
   return (
     <section>
-      <h5>New Feature</h5>
-      <input
+      <Input
         className="form-input"
         type="text"
-        ref={titleRef}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
         placeholder="Feature Title"
       />
-      <input
+      <Input
         className="form-input"
         type="text"
-        ref={descriptionRef}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
         placeholder="Feature Description"
       />
-      <button className="submit" onClick={handleSubmit}>
-        Add New Feature
-      </button>
     </section>
   );
 };

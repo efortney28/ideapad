@@ -39,61 +39,53 @@ const Dashboard = () => {
   };
 
   if (currentUser) {
-    if (projects) {
-      return (
-        <section className="dashboard">
-          {addNewProject && (
-            <Modal
-              title="Create New Project"
-              visible={addNewProject}
-              onOk={handleOk}
-              onCancel={handleCancel}
-              footer={[
-                <Button key="back" onClick={handleCancel}>
-                  Cancel
-                </Button>,
-                <Button key="submit" type="primary" onClick={handleOk}>
-                  Add Project
-                </Button>,
-              ]}
-            >
-              <section className="create-project">
-                <Input
-                  className="project-input"
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Project Title"
-                />
-                <Input
-                  className="project-input"
-                  type="text"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Project Description"
-                />
-              </section>
-            </Modal>
-          )}
-          <Button type="primary" onClick={handleClick}>
-            Open Modal
+    return (
+      <section className="dashboard">
+        {addNewProject && (
+          <Modal
+            title="Create New Project"
+            visible={addNewProject}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Cancel
+              </Button>,
+              <Button key="submit" type="primary" onClick={handleOk}>
+                Add Project
+              </Button>,
+            ]}
+          >
+            <section className="create-project">
+              <Input
+                className="project-input"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Project Title"
+              />
+              <Input
+                className="project-input"
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Project Description"
+              />
+            </section>
+          </Modal>
+        )}
+        <section className="projects-container">
+          <h3>Your Projects</h3>
+          <Button className="add-project" type="primary" onClick={handleClick}>
+            Create New Project
           </Button>
-          <section className="projects-container">
-            <h3>Your Projects</h3>
-            {projects &&
-              projects.map((project, ind) => (
-                <Project project={project} key={ind} />
-              ))}
-          </section>
+          {projects &&
+            projects.map((project, ind) => (
+              <Project className="project" project={project} key={ind} />
+            ))}
         </section>
-      );
-    } else {
-      return (
-        <section className="dashboard">
-          <h3>There are no projects yet :(</h3>
-        </section>
-      );
-    }
+      </section>
+    );
   } else {
     return <Redirect to="/login" />;
   }

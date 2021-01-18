@@ -1,11 +1,34 @@
 .dashboard {
-  margin: 3rem auto;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-width: 90%;
-  text-align: center;
+  text-align: center !important;
+}
+.ant-btn {
+  margin: 1rem;
 }
 .ant-btn-primary {
   background-color: var(--bright-blue) !important;
+}
+.project-input {
+  margin: 1rem 0 !important;
+  padding: 0.5rem !important;
+}
+.ant-modal-body {
+  padding-top: 0 !important;
+}
+.ant-modal-footer {
+  text-align: center !important;
+}
+.project {
+  margin: 2rem 0;
+}
+
+@media screen and (min-width: 1000px) {
+  .dashboard {
+    margin: 3rem auto;
+    max-width: 60%;
+  }
 }
