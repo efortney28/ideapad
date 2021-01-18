@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [addNewProject, setAddNewProject] = useState(false);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const { alert } = useAlerts();
+  const { alert, createAlert } = useAlerts();
 
   useEffect(() => {
     if (currentUser) {
@@ -31,6 +31,10 @@ const Dashboard = () => {
   };
 
   const handleOk = () => {
+    if (!title || !description) {
+      return createAlert("Error", "All fields must be completed.");
+    }
+
     createProject(title, description);
     setTitle(null);
     setDescription(null);
@@ -61,6 +65,7 @@ const Dashboard = () => {
             ]}
           >
             <section className="create-project">
+              {alert && <Alert type={alert.type} message={alert.message} />}
               <Input
                 className="project-input"
                 type="text"

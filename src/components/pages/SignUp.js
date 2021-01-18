@@ -30,6 +30,10 @@ const SignUp = () => {
       return createAlert("Error", "Passwords do not match.");
     }
 
+    if (!email || !password || !confirm) {
+      return createAlert("Error", "All fields must be completed.");
+    }
+
     try {
       await signUpWithEmail(email, password);
       history.push("/");

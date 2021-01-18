@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 import FeaturesProvider from "../../context/FeaturesContext";
 import Features from "../features/Features";
+import { useAlerts } from "../../context/AlertsContext";
+import Alert from "../layout/Alert";
 import { Button, Card, Input, Modal, Popconfirm } from "antd";
 import "../../styles/project.css";
 import {
@@ -20,12 +22,16 @@ const Project = (props) => {
   const [featureTitle, setFeatureTitle] = useState();
   const [featureDescription, setFeatureDescription] = useState();
   const { Meta } = Card;
+  const { alert, createAlert } = useAlerts();
 
   const handleEdit = () => {
     setEdit(true);
   };
 
   const handleEditOk = () => {
+    if (!newTitle || !newDescription) {
+      return createAlert("Error:", "All fields must be completed.");
+    }
     editProject(id, newTitle, newDescription);
     setEdit(false);
   };
@@ -39,6 +45,10 @@ const Project = (props) => {
   };
 
   const handleOk = () => {
+    if (!featureTitle || !featureDescription) {
+      return createAlert("Error", "All fields must be completed.");
+    }
+
     createFeature(id, featureTitle, featureDescription);
     setFeatureTitle(null);
     setFeatureDescription(null);
@@ -65,12 +75,13 @@ const Project = (props) => {
             <Button key="back" onClick={handleEditCancel}>
               Cancel
             </Button>,
-            <Button key="submit" type="primary" onclick={handleEditOk}>
+            <Button key="submit" type="primary" onClick={handleEditOk}>
               Update Project
             </Button>,
           ]}
         >
           <section className="project-form">
+            {alert && <Alert type={alert.type} message={alert.message} />}
             <Input
               className="project-input"
               type="text"
@@ -126,6 +137,7 @@ const Project = (props) => {
             ]}
           >
             <section>
+              {alert && <Alert type={alert.type} message={alert.message} />}
               <Input
                 className="project-input"
                 type="text"

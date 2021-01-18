@@ -28,6 +28,11 @@ const Login = () => {
 
   const handleLogIn = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      return createAlert("Error", "All fields must be completed.");
+    }
+
     try {
       await loginWithEmail(email, password);
       history.push("/");
