@@ -22,7 +22,16 @@ const Project = (props) => {
   const { Meta } = Card;
 
   const handleEdit = () => {
-    setEdit((prevState) => !prevState);
+    setEdit(true);
+  };
+
+  const handleEditOk = () => {
+    editProject(id, newTitle, newDescription);
+    setEdit(false);
+  };
+
+  const handleEditCancel = () => {
+    setEdit(false);
   };
 
   const handleNewFeatureClick = () => {
@@ -44,41 +53,43 @@ const Project = (props) => {
     deleteProject(id);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    editProject(id, newTitle, newDescription);
-    setEdit(false);
-  };
-
-  if (edit) {
-    return (
-      <section className="project-form">
-        <Input
-          className="project-input"
-          type="text"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-          placeholder={title}
-          default={title}
-        />
-
-        <Input
-          className="project-input"
-          type="text"
-          value={newDescription}
-          onChange={(e) => setNewDescription(e.target.value)}
-          placeholder={description}
-        />
-
-        <Button type="primary" className="submit" onClick={handleSubmit}>
-          Update Project
-        </Button>
-      </section>
-    );
-  }
-
   return (
     <section className="project">
+      {edit && (
+        <Modal
+          title="Edit Project"
+          visible={edit}
+          onOk={handleEditOk}
+          onCancel={handleEditCancel}
+          footer={[
+            <Button key="back" onClick={handleEditCancel}>
+              Cancel
+            </Button>,
+            <Button key="submit" type="primary" onclick={handleEditOk}>
+              Update Project
+            </Button>,
+          ]}
+        >
+          <section className="project-form">
+            <Input
+              className="project-input"
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+              placeholder={title}
+              default={title}
+            />
+
+            <Input
+              className="project-input"
+              type="text"
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              placeholder={description}
+            />
+          </section>
+        </Modal>
+      )}
       <Card>
         <Meta title={title} description={description} />
         <section className="project-actions">
