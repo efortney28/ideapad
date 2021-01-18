@@ -29,13 +29,7 @@ const FeaturesProvider = (props) => {
     }
   };
 
-  const editFeature = async (
-    projID,
-    featureID,
-    title,
-    description,
-    completed
-  ) => {
+  const editFeature = async (projID, featureID, title, description) => {
     try {
       await db
         .collection("users")
@@ -47,7 +41,6 @@ const FeaturesProvider = (props) => {
         .update({
           title: title,
           description: description,
-          completed: completed,
         });
     } catch (e) {
       console.log(e);
