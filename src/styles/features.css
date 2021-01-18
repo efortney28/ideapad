@@ -9,3 +9,6 @@
   flex-direction: column;
   align-items: start;
 }
+#deleteFeature {
+  color: var(--red);
+}

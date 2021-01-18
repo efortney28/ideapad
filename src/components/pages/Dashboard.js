@@ -48,6 +48,7 @@ const Dashboard = () => {
   if (currentUser) {
     return (
       <section className="dashboard">
+        {alert && <Alert type={alert.type} message={alert.message} />}
         {addNewProject && (
           <Modal
             title="Create New Project"

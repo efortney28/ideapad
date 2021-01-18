@@ -1,12 +1,20 @@
 import { useEffect } from "react";
 import { useFeatures } from "../../context/FeaturesContext";
 import { List } from "antd";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckOutlined, DeleteFilled, EditFilled } from "@ant-design/icons";
 import "../../styles/features.css";
+import { useAlerts } from "../../context/AlertsContext";
+import Alert from "../layout/Alert";
 
 const Features = (props) => {
   const { id } = props;
-  const { features, getFeatures, markAsCompleted } = useFeatures();
+  const {
+    features,
+    getFeatures,
+    deleteFeature,
+    markAsCompleted,
+  } = useFeatures();
+  const { alert, createAlert } = useAlerts();
 
   useEffect(() => {
     getFeatures(id);
@@ -14,6 +22,15 @@ const Features = (props) => {
 
   const handleCompletedToggle = (featureId, prevCompleted) => {
     markAsCompleted(id, featureId, prevCompleted);
+  };
+
+  const handleDelete = (featId) => {
+    try {
+      deleteFeature(id, featId);
+      createAlert("Success", "Feature deleted successfully.");
+    } catch (e) {
+      createAlert("Error", "There was a problem deleting the feature.");
+    }
   };
 
   if (features) {
@@ -27,6 +44,11 @@ const Features = (props) => {
                 <List.Item.Meta
                   title={item.title}
                   description={item.description}
+                />
+                <DeleteFilled
+                  className="action"
+                  id="deleteFeature"
+                  onClick={() => handleDelete(item.id)}
                 />
                 <CheckOutlined
                   className={"check " + (item.completed ? "completed" : "")}
