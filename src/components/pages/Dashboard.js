@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useProjects } from "../../context/ProjectsContext";
 import Project from "../projects/Project";
+import { useAlerts } from "../../context/AlertsContext";
+import Alert from "../layout/Alert";
 import { Button, Input, Modal } from "antd";
 import "../../styles/dashboard.css";
 
@@ -12,6 +14,7 @@ const Dashboard = () => {
   const [addNewProject, setAddNewProject] = useState(false);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
+  const { alert } = useAlerts();
 
   useEffect(() => {
     if (currentUser) {
@@ -41,6 +44,7 @@ const Dashboard = () => {
   if (currentUser) {
     return (
       <section className="dashboard">
+        {alert && <Alert type={alert.type} message={alert.message} />}
         {addNewProject && (
           <Modal
             title="Create New Project"
