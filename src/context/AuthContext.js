@@ -25,7 +25,7 @@ const AuthProvider = (props) => {
 
   const signInWithGoogle = () => {
     auth
-      .signInWithPopup(firebase.auth.GoogleAuthProvider())
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
         setUser(result.user);
       })

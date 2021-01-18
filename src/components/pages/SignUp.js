@@ -11,7 +11,7 @@ const SignUp = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
-  const { currentUser, signUpWithEmail } = useAuth();
+  const { currentUser, signUpWithEmail, signInWithGoogle } = useAuth();
   const { alert, createAlert } = useAlerts();
   const history = useHistory();
 
@@ -40,6 +40,15 @@ const SignUp = () => {
     } catch (e) {
       console.log(e);
       createAlert("Error", e.message);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    try {
+      signInWithGoogle();
+      history.push("/");
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -85,6 +94,14 @@ const SignUp = () => {
         onClick={handleSubmit}
       >
         Create Account
+      </Button>
+      <Button
+        size="large"
+        type="primary"
+        className="google-btn"
+        onClick={() => handleGoogleSignIn()}
+      >
+        Sign Up with Google
       </Button>
     </section>
   );

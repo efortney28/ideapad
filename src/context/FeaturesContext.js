@@ -96,6 +96,20 @@ const FeaturesProvider = (props) => {
     }
   };
 
+  const getProgress = () => {
+    let totalFeatures = 0;
+    let completedFeatures = 0;
+    features.forEach((feature) => {
+      totalFeatures += 1;
+      if (feature.completed) {
+        completedFeatures += 1;
+      }
+    });
+    let progress = completedFeatures / totalFeatures;
+    console.log("percent complete: " + progress);
+    return progress * 100;
+  };
+
   return (
     <FeaturesContext.Provider
       value={{
@@ -104,6 +118,7 @@ const FeaturesProvider = (props) => {
         editFeature,
         deleteFeature,
         markAsCompleted,
+        getProgress,
       }}
     >
       {props.children}

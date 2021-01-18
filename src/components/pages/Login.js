@@ -8,7 +8,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "../../styles/login.css";
 
 const Login = () => {
-  const { currentUser, loginWithEmail } = useAuth();
+  const { currentUser, loginWithEmail, signInWithGoogle } = useAuth();
   const { alert, createAlert } = useAlerts();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -38,6 +38,15 @@ const Login = () => {
       history.push("/");
     } catch (e) {
       createAlert("Error", e.message);
+      console.log(e);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    try {
+      signInWithGoogle();
+      history.push("/");
+    } catch (e) {
       console.log(e);
     }
   };
@@ -74,6 +83,14 @@ const Login = () => {
         onClick={handleLogIn}
       >
         Log In
+      </Button>
+      <Button
+        size="large"
+        type="primary"
+        className="google-btn"
+        onClick={() => handleGoogleSignIn()}
+      >
+        Sign In with Google
       </Button>
     </section>
   );

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useFeatures } from "../../context/FeaturesContext";
-import { Button, Input, List, Modal, Popconfirm } from "antd";
+import { Button, Input, List, Modal, Popconfirm, Progress } from "antd";
 import { CheckOutlined, DeleteFilled } from "@ant-design/icons";
 import "../../styles/features.css";
 import { useAlerts } from "../../context/AlertsContext";
 import Alert from "../layout/Alert";
-import create from "@ant-design/icons/lib/components/IconFont";
 
 const Features = (props) => {
   const { id } = props;
@@ -15,6 +14,7 @@ const Features = (props) => {
     editFeature,
     deleteFeature,
     markAsCompleted,
+    getProgress,
   } = useFeatures();
   const { alert, createAlert } = useAlerts();
   const [editFlag, setEditFlag] = useState(false);
@@ -64,6 +64,13 @@ const Features = (props) => {
   if (features) {
     return (
       <section className="features-container">
+        {}
+        <Progress
+          className="progress-bar"
+          percent={getProgress()}
+          status="active"
+          strokeColor={"#06d6a0"}
+        />
         {features && (
           <List
             dataSource={features}
