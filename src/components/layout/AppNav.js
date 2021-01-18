@@ -25,7 +25,10 @@ const AppNav = () => {
 
   return (
     <nav className="nav">
-      <section className="brand">IdeaPad</section>
+      <section className="brand">
+        <span className="thin">idea</span>
+        <span className="medium">Pad</span>
+      </section>
       {currentUser ? (
         <Button className="auth-button" type="text" onClick={handleSignOut}>
           Sign Out

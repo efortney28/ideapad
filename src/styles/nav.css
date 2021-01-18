@@ -13,7 +13,7 @@
 .auth-button {
   margin: 1rem 0;
   font-size: 1rem;
-  font-weight: 500 !important;
+  font-weight: 300 !important;
   color: white !important;
 }
 .auth-button:hover {
@@ -26,4 +26,7 @@
   color: white;
   padding: 0;
   margin: 0;
+}
+.thin {
+  font-weight: 300;
 }

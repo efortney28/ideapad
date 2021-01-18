@@ -107,7 +107,7 @@ const FeaturesProvider = (props) => {
     });
     let progress = completedFeatures / totalFeatures;
     console.log("percent complete: " + progress);
-    return progress * 100;
+    return Math.floor(progress * 100);
   };
 
   return (
