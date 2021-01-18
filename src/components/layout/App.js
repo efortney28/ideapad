@@ -6,6 +6,7 @@ import AppNav from "./AppNav";
 import Dashboard from "../pages/Dashboard";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
+import AppFooter from "./AppFooter";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/signup" component={SignUp} />
                 <Route path="/login" component={Login} />
               </Switch>
+              <AppFooter />
             </section>
           </Router>
         </ProjectsProvider>
