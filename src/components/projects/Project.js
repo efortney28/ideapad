@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 import FeaturesProvider from "../../context/FeaturesContext";
-import CreateFeature from "../features/CreateFeature";
 import Features from "../features/Features";
 import { Button, Card, Input, Modal, Popconfirm } from "antd";
 import "../../styles/project.css";
