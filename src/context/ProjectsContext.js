@@ -43,7 +43,7 @@ const ProjectsProvider = (props) => {
     }
   };
 
-  const editProject = async (id, title, description) => {
+  const editProject = async (id, title, description = null) => {
     try {
       await db
         .collection("users")
@@ -72,7 +72,7 @@ const ProjectsProvider = (props) => {
     }
   };
 
-  const createFeature = async (id, title, description) => {
+  const createFeature = async (id, title, description = null) => {
     try {
       await db
         .collection("users")

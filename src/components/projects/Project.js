@@ -29,10 +29,12 @@ const Project = (props) => {
   };
 
   const handleEditOk = () => {
-    if (!newTitle || !newDescription) {
-      return createAlert("Error:", "All fields must be completed.");
+    if (!newTitle) {
+      return createAlert("Error:", "Title field must be completed.");
     }
     editProject(id, newTitle, newDescription);
+    newTitle = null;
+    newDescription = null;
     setEdit(false);
   };
 
@@ -45,8 +47,8 @@ const Project = (props) => {
   };
 
   const handleOk = () => {
-    if (!featureTitle || !featureDescription) {
-      return createAlert("Error", "All fields must be completed.");
+    if (!featureTitle) {
+      return createAlert("Error", "Title field must be completed.");
     }
 
     createFeature(id, featureTitle, featureDescription);

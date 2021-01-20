@@ -29,7 +29,7 @@ const FeaturesProvider = (props) => {
     }
   };
 
-  const editFeature = async (projID, featureID, title, description) => {
+  const editFeature = async (projID, featureID, title, description = null) => {
     try {
       await db
         .collection("users")

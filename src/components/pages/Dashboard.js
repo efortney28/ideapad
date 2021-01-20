@@ -31,8 +31,8 @@ const Dashboard = () => {
   };
 
   const handleOk = () => {
-    if (!title || !description) {
-      return createAlert("Error", "All fields must be completed.");
+    if (!title) {
+      return createAlert("Error", "Title field must be completed.");
     }
 
     createProject(title, description);

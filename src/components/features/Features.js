@@ -29,13 +29,15 @@ const Features = (props) => {
     setEditFlag(true);
   };
 
-  const handleOk = (featId, title, description) => {
-    if (!newTitle || !newDescription) {
-      return createAlert("Error", "All fields must be completed.");
+  const handleOk = (featId, title, description = null) => {
+    if (!newTitle) {
+      return createAlert("Error", "Title field must be completed.");
     }
 
     try {
       editFeature(id, featId, title, description);
+      setNewTitle = null;
+      setNewDescription = null;
       createAlert("Success", "Feature saved successfully.");
     } catch (e) {
       createAlert("Error", "Problem saving feature.");
