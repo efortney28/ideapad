@@ -84,14 +84,14 @@ const Dashboard = () => {
           </Modal>
         )}
         <section className="projects-container">
-          <Button
+          {/* <Button
             type="primary"
             onClick={() => {
               connectGoogleAccount();
             }}
           >
             Connect your Google account
-          </Button>
+          </Button> */}
           <h3>Your Projects</h3>
           <Button className="add-project" type="primary" onClick={handleClick}>
             Create New Project

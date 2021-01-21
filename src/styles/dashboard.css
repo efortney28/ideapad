@@ -5,6 +5,7 @@
   justify-content: center;
   max-width: 95%;
   text-align: center !important;
+  padding-bottom: 5rem;
 }
 .ant-btn {
   margin: 1rem;
