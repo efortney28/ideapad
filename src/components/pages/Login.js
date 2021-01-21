@@ -84,14 +84,14 @@ const Login = () => {
       >
         Log In
       </Button>
-      {/* <Button
+      <Button
         size="large"
         type="primary"
         className="google-btn"
         onClick={() => handleGoogleSignIn()}
       >
         Sign In with Google
-      </Button> */}
+      </Button>
     </section>
   );
 };

@@ -4,12 +4,16 @@ footer {
   justify-content: center;
   text-align: center;
   align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
 }
 .social-icon-link {
   text-decoration: none;
   color: white;
 }
 .social-icon {
-  font-size: 1.5rem;
-  margin: 0.5rem;
+  font-size: 2rem;
+  margin: 0.7rem;
 }

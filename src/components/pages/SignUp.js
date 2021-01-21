@@ -95,14 +95,14 @@ const SignUp = () => {
       >
         Create Account
       </Button>
-      {/* <Button
+      <Button
         size="large"
         type="primary"
         className="google-btn"
         onClick={() => handleGoogleSignIn()}
       >
         Sign Up with Google
-      </Button> */}
+      </Button>
     </section>
   );
 };

@@ -3,7 +3,7 @@ import "../../styles/footer.css";
 
 const AppFooter = () => {
   return (
-    <footer>
+    <footer className="app-footer">
       <a
         className="social-icon-link"
         href="https://github.com/efortney28"
