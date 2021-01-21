@@ -34,6 +34,30 @@ const AuthProvider = (props) => {
       });
   };
 
+  const connectGoogleAccount = () => {
+    if (currentUser) {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.currentUser
+        .linkWithPopup(provider)
+        .then((res) => {
+          console.log(res);
+          auth
+            .getRedirectResult()
+            .then((result) => {
+              if (result.credential) {
+                console.log(result);
+              }
+            })
+            .catch((e) => {
+              console.log(e.message);
+            });
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+    }
+  };
+
   const signOut = () => {
     return auth.signOut();
   };
@@ -46,6 +70,7 @@ const AuthProvider = (props) => {
         loginWithEmail,
         signInWithGoogle,
         signOut,
+        connectGoogleAccount,
       }}
     >
       {props.children}

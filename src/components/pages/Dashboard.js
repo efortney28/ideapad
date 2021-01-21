@@ -9,7 +9,7 @@ import { Button, Input, Modal } from "antd";
 import "../../styles/dashboard.css";
 
 const Dashboard = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, connectGoogleAccount } = useAuth();
   const { projects, getProjects, createProject } = useProjects();
   const [addNewProject, setAddNewProject] = useState(false);
   const [title, setTitle] = useState();
@@ -84,6 +84,14 @@ const Dashboard = () => {
           </Modal>
         )}
         <section className="projects-container">
+          <Button
+            type="primary"
+            onClick={() => {
+              connectGoogleAccount();
+            }}
+          >
+            Connect your Google account
+          </Button>
           <h3>Your Projects</h3>
           <Button className="add-project" type="primary" onClick={handleClick}>
             Create New Project
