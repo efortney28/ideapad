@@ -34,12 +34,14 @@ const Tasks = (props) => {
 
   return (
     <section className="tasks">
-      <Progress
-        className="progress-bar"
-        percent={getProgress()}
-        status="active"
-        strokeColor={"#06d6a0"}
-      />
+      {tasks && (
+        <Progress
+          className="progress-bar"
+          percent={getProgress()}
+          status="active"
+          strokeColor={"#06d6a0"}
+        />
+      )}
       <List
         dataSource={tasks}
         itemLayout="horizontal"
