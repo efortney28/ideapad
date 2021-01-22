@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useAlerts } from "../../context/AlertsContext";
-import Alert from "../layout/Alert";
-import { Input, Button } from "antd";
+import { Input, Button, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "../../styles/login.css";
 
 const Login = () => {
   const { currentUser, loginWithEmail, signInWithGoogle } = useAuth();
-  const { alert, createAlert } = useAlerts();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const history = useHistory();
@@ -30,14 +27,14 @@ const Login = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      return createAlert("Error", "All fields must be completed.");
+      return message.error("All fields must be completed.");
     }
 
     try {
       await loginWithEmail(email, password);
       history.push("/");
     } catch (e) {
-      createAlert("Error", e.message);
+      message.error(e.message);
       console.log(e);
     }
   };
@@ -47,13 +44,13 @@ const Login = () => {
       signInWithGoogle();
       history.push("/");
     } catch (e) {
+      message.error(e.message);
       console.log(e);
     }
   };
 
   return (
     <section className="login">
-      {alert && <Alert type={alert.type} message={alert.message} />}
       <h2>Login to IdeaPad</h2>
 
       <Input

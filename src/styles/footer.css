@@ -9,9 +9,31 @@ footer {
   width: 100%;
   z-index: 99;
 }
+.back-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 101;
+  font-size: 1rem !important;
+  color: white !important;
+  margin-bottom: 0.7rem;
+  margin-left: 0.7rem;
+}
+.back-button:hover,
+.back-button:active {
+  color: var(--bg-color) !important;
+}
+
+#root > section > footer > span > svg {
+  font-size: 2rem !important;
+}
 .social-icon-link {
   text-decoration: none;
   color: white;
+}
+.social-icon-link:hover,
+.social-icon-link:active {
+  color: var(--bg-color) !important;
 }
 .social-icon {
   font-size: 2rem;

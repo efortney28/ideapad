@@ -60,7 +60,9 @@ const FeaturesProvider = (props) => {
           title: title,
           description: description,
         });
+      message.success("Feature saved successfully!");
     } catch (e) {
+      message.error(e.message);
       console.log(e);
     }
   };

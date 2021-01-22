@@ -16,11 +16,9 @@
   font-weight: 300 !important;
   color: white !important;
 }
-.auth-button:hover {
-  color: blue;
-}
+.auth-button:hover,
 .auth-button:active {
-  color: blue;
+  color: var(--bg-color) !important;
 }
 #divider {
   color: white;

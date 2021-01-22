@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useAlerts } from "../../context/AlertsContext";
-import Alert from "../layout/Alert";
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "../../styles/signup.css";
 
@@ -11,8 +9,7 @@ const SignUp = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
-  const { currentUser, signUpWithEmail, signInWithGoogle } = useAuth();
-  const { alert, createAlert } = useAlerts();
+  const { signUpWithEmail, signInWithGoogle } = useAuth();
   const history = useHistory();
 
   const handleKeyDown = (e) => {
@@ -27,11 +24,11 @@ const SignUp = () => {
     e.preventDefault();
 
     if (password !== confirm) {
-      return createAlert("Error", "Passwords do not match.");
+      return message.error("Passwords do not match.");
     }
 
     if (!email || !password || !confirm) {
-      return createAlert("Error", "All fields must be completed.");
+      return message.error("All fields must be completed.");
     }
 
     try {
@@ -39,7 +36,7 @@ const SignUp = () => {
       history.push("/");
     } catch (e) {
       console.log(e);
-      createAlert("Error", e.message);
+      message.error(e.message);
     }
   };
 
@@ -48,6 +45,7 @@ const SignUp = () => {
       signInWithGoogle();
       history.push("/");
     } catch (e) {
+      message.error(e.message);
       console.log(e);
     }
   };
@@ -55,7 +53,6 @@ const SignUp = () => {
   return (
     <section className="signup-form">
       <h2>Sign Up</h2>
-      {alert && <Alert type={alert.type} message={alert.message} />}
       <Input
         className="auth-input"
         type="email"

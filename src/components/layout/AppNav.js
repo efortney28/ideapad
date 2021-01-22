@@ -1,17 +1,15 @@
 import { useHistory, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Button } from "antd";
-import { useAlerts } from "../../context/AlertsContext";
+import { Button, message } from "antd";
 import "../../styles/nav.css";
 
 const AppNav = () => {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
-  const { alert, createAlert } = useAlerts();
 
   const handleSignOut = () => {
     signOut();
-    createAlert("Success", "You have been signed out.");
+    message.success("You are now logged out.");
   };
 
   const redirectToLogin = () => {
