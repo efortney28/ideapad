@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useProjects } from "../../context/ProjectsContext";
+import ProjectsProvider from "../../context/ProjectsContext";
+import { useGlobal } from "../../context/GlobalContext";
 import Project from "../projects/Project";
-import { useAlerts } from "../../context/AlertsContext";
-import Alert from "../layout/Alert";
-import { Button, Input, Modal } from "antd";
+import { Button, Input, message, Modal } from "antd";
 import "../../styles/dashboard.css";
 
 const Dashboard = () => {
-  const { currentUser, connectGoogleAccount } = useAuth();
-  const { projects, getProjects, createProject } = useProjects();
+  const { currentUser } = useAuth();
+  const { projects, getProjects, createProject } = useGlobal();
   const [addNewProject, setAddNewProject] = useState(false);
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  const { alert, createAlert } = useAlerts();
 
   useEffect(() => {
     if (currentUser) {
@@ -32,7 +30,7 @@ const Dashboard = () => {
 
   const handleOk = () => {
     if (!title) {
-      return createAlert("Error", "Title field must be completed.");
+      return message.error("Title field must be completed.");
     }
 
     createProject(title, description);
@@ -48,7 +46,6 @@ const Dashboard = () => {
   if (currentUser) {
     return (
       <section className="dashboard">
-        {alert && <Alert type={alert.type} message={alert.message} />}
         {addNewProject && (
           <Modal
             title="Create New Project"
@@ -65,7 +62,6 @@ const Dashboard = () => {
             ]}
           >
             <section className="create-project">
-              {alert && <Alert type={alert.type} message={alert.message} />}
               <Input
                 className="project-input"
                 type="text"
@@ -98,7 +94,9 @@ const Dashboard = () => {
           </Button>
           {projects &&
             projects.map((project, ind) => (
-              <Project className="project" project={project} key={ind} />
+              <ProjectsProvider>
+                <Project className="project" project={project} key={ind} />
+              </ProjectsProvider>
             ))}
         </section>
       </section>

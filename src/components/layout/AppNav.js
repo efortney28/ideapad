@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "antd";
 import { useAlerts } from "../../context/AlertsContext";
@@ -25,10 +25,12 @@ const AppNav = () => {
 
   return (
     <nav className="nav">
-      <section className="brand">
-        <span className="thin">idea</span>
-        <span className="medium">Pad</span>
-      </section>
+      <Link to="/">
+        <section className="brand">
+          <span className="thin">idea</span>
+          <span className="medium">Pad</span>
+        </section>
+      </Link>
       {currentUser ? (
         <Button className="auth-button" type="text" onClick={handleSignOut}>
           Sign Out

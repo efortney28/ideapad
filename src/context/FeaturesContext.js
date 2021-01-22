@@ -7,6 +7,7 @@ const FeaturesContext = createContext();
 const FeaturesProvider = (props) => {
   const { currentUser } = useAuth();
   const [features, setFeatures] = useState();
+  const [feature, setFeature] = useState();
 
   const getFeatures = (id) => {
     try {
@@ -23,6 +24,22 @@ const FeaturesProvider = (props) => {
             featuresList.push(feature);
           });
           setFeatures(featuresList);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getFeature = (projID, featID) => {
+    try {
+      db.collection("users")
+        .doc(currentUser.uid)
+        .collection("projects")
+        .doc(projID)
+        .collection("features")
+        .doc(featID)
+        .onSnapshot((doc) => {
+          setFeature(doc.data());
         });
     } catch (e) {
       console.log(e);
@@ -114,7 +131,9 @@ const FeaturesProvider = (props) => {
     <FeaturesContext.Provider
       value={{
         features,
+        feature,
         getFeatures,
+        getFeature,
         editFeature,
         deleteFeature,
         markAsCompleted,

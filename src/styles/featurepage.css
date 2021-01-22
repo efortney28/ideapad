@@ -1,0 +1,45 @@
+.feature-page {
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 95%;
+  text-align: center !important;
+  padding-bottom: 5rem;
+}
+.project-actions {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.action {
+  padding: 0 1rem;
+  font-size: 1.5rem;
+}
+#edit {
+  color: var(--yellow);
+}
+#delete {
+  color: var(--red);
+}
+#add {
+  color: var(--green);
+  padding-right: 0.2rem !important;
+}
+.ant-popover-message {
+  margin: 1rem;
+}
+.add-ft-btn {
+  margin: 0;
+  padding: 0;
+  color: var(--green);
+  font-weight: 500;
+}
+
+@media screen and (min-width: 1000px) {
+  .feature-page {
+    margin: 3rem auto;
+    max-width: 60%;
+  }
+}

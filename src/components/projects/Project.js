@@ -2,27 +2,26 @@ import { useState } from "react";
 import { useProjects } from "../../context/ProjectsContext";
 import FeaturesProvider from "../../context/FeaturesContext";
 import Features from "../features/Features";
-import { useAlerts } from "../../context/AlertsContext";
-import Alert from "../layout/Alert";
-import { Button, Card, Input, Modal, Popconfirm } from "antd";
+import { Button, Card, Input, message, Modal, Popconfirm } from "antd";
 import "../../styles/project.css";
 import {
   DeleteFilled,
   EditFilled,
   PlusSquareOutlined,
 } from "@ant-design/icons";
+import { useGlobal } from "../../context/GlobalContext";
 
 const Project = (props) => {
   const { id, title, description } = props.project;
   const [newTitle, setNewTitle] = useState();
   const [newDescription, setNewDescription] = useState();
-  const { editProject, deleteProject, createFeature } = useProjects();
+  const { editProject, deleteProject } = useProjects();
+  const { createFeature } = useGlobal();
   const [edit, setEdit] = useState(false);
   const [feature, setFeature] = useState(false);
   const [featureTitle, setFeatureTitle] = useState();
   const [featureDescription, setFeatureDescription] = useState();
   const { Meta } = Card;
-  const { alert, createAlert } = useAlerts();
 
   const handleEdit = () => {
     setEdit(true);
@@ -30,7 +29,7 @@ const Project = (props) => {
 
   const handleEditOk = () => {
     if (!newTitle) {
-      return createAlert("Error:", "Title field must be completed.");
+      return message.error("Title field must be completed.");
     }
     editProject(id, newTitle, newDescription);
     newTitle = null;
@@ -48,7 +47,7 @@ const Project = (props) => {
 
   const handleOk = () => {
     if (!featureTitle) {
-      return createAlert("Error", "Title field must be completed.");
+      return message.error("Title field must be completed.");
     }
 
     createFeature(id, featureTitle, featureDescription);
@@ -83,7 +82,6 @@ const Project = (props) => {
           ]}
         >
           <section className="project-form">
-            {alert && <Alert type={alert.type} message={alert.message} />}
             <Input
               className="project-input"
               type="text"
@@ -120,7 +118,7 @@ const Project = (props) => {
               id="add"
               className="action"
               onClick={handleNewFeatureClick}
-            />{" "}
+            />
           </span>
         </section>
         {feature && (
@@ -139,7 +137,6 @@ const Project = (props) => {
             ]}
           >
             <section>
-              {alert && <Alert type={alert.type} message={alert.message} />}
               <Input
                 className="project-input"
                 type="text"
