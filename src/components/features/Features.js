@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useFeatures } from "../../context/FeaturesContext";
 import { List, message, Popconfirm, Progress } from "antd";
-import { CheckOutlined, DeleteFilled } from "@ant-design/icons";
+import { DeleteFilled } from "@ant-design/icons";
 import "../../styles/features.css";
 
 const Features = (props) => {
@@ -19,10 +19,6 @@ const Features = (props) => {
     getFeatures(id);
   }, []);
 
-  const handleCompletedToggle = (featureId, prevCompleted) => {
-    markAsCompleted(id, featureId, prevCompleted);
-  };
-
   const handleDelete = (featId) => {
     try {
       deleteFeature(id, featId);
@@ -35,7 +31,6 @@ const Features = (props) => {
   if (features) {
     return (
       <section className="features-container">
-        {}
         <Progress
           className="progress-bar"
           percent={getProgress()}
@@ -53,6 +48,14 @@ const Features = (props) => {
                     title={item.title}
                     description={item.description}
                   />
+                  <Progress
+                    className="progress-bar-small"
+                    type="circle"
+                    percent={getProgress()}
+                    status="active"
+                    width={50}
+                    strokeColor={"#118ab2"}
+                  />
                   <Popconfirm
                     title="Are you sure you want to delete this feature?"
                     onConfirm={() => handleDelete(item.id)}
@@ -61,12 +64,6 @@ const Features = (props) => {
                   >
                     <DeleteFilled id="deleteFeature" className="action" />
                   </Popconfirm>
-                  <CheckOutlined
-                    className={"check " + (item.completed ? "completed" : "")}
-                    onClick={() =>
-                      handleCompletedToggle(item.id, item.completed)
-                    }
-                  />
                 </List.Item>
               </Link>
             )}

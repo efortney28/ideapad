@@ -1,4 +1,5 @@
 import FeaturesProvider from "../context/FeaturesContext";
+import TasksProvider from "../context/TasksContext";
 import FeaturePage from "./pages/FeaturePage";
 
 const FeaturesWrapper = (props) => {
@@ -6,10 +7,11 @@ const FeaturesWrapper = (props) => {
   const {
     params: { projectId, featureId },
   } = match;
-  console.log(match);
   return (
     <FeaturesProvider>
-      <FeaturePage projectId={projectId} featureId={featureId} />
+      <TasksProvider>
+        <FeaturePage projectId={projectId} featureId={featureId} />
+      </TasksProvider>
     </FeaturesProvider>
   );
 };

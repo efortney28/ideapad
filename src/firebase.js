@@ -12,6 +12,13 @@ const app = firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID,
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 });
+
+firebase
+  .firestore()
+  .clearPersistence()
+  .catch((e) => {
+    console.log(e.message);
+  });
 export const db = firebase.firestore();
 export const auth = app.auth();
 export default app;

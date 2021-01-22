@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { db } from "../firebase";
 import { useAuth } from "./AuthContext";
+import { message } from "antd";
 
 const FeaturesContext = createContext();
 
@@ -123,7 +124,6 @@ const FeaturesProvider = (props) => {
       }
     });
     let progress = completedFeatures / totalFeatures;
-    console.log("percent complete: " + progress);
     return Math.floor(progress * 100);
   };
 

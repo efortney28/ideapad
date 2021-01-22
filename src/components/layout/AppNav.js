@@ -2,7 +2,6 @@ import { useHistory, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Button } from "antd";
 import { useAlerts } from "../../context/AlertsContext";
-import Alert from "../layout/Alert";
 import "../../styles/nav.css";
 
 const AppNav = () => {

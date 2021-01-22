@@ -32,8 +32,8 @@ const Project = (props) => {
       return message.error("Title field must be completed.");
     }
     editProject(id, newTitle, newDescription);
-    newTitle = null;
-    newDescription = null;
+    setNewTitle(null);
+    setNewDescription(null);
     setEdit(false);
   };
 

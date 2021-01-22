@@ -2,23 +2,44 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useFeatures } from "../../context/FeaturesContext";
 import { useAuth } from "../../context/AuthContext";
-import { Button, Card, Input, message, Modal, Popconfirm } from "antd";
+import { useTasks } from "../../context/TasksContext";
 import {
+  Button,
+  Card,
+  Input,
+  message,
+  Modal,
+  Popconfirm,
+  Progress,
+} from "antd";
+import {
+  CheckOutlined,
   DeleteFilled,
   EditFilled,
   PlusSquareOutlined,
 } from "@ant-design/icons";
 import "../../styles/featurepage.css";
+import Tasks from "../tasks/Tasks";
 
 const FeaturePage = (props) => {
   const { projectId, featureId } = props;
   const { currentUser } = useAuth();
+  const { createTask } = useTasks();
   const { Meta } = Card;
-  const { feature, getFeature, editFeature, deleteFeature } = useFeatures();
+  const {
+    feature,
+    getFeature,
+    editFeature,
+    deleteFeature,
+    markAsCompleted,
+  } = useFeatures();
   const history = useHistory();
   const [edit, setEdit] = useState(false);
   const [newTitle, setNewTitle] = useState();
   const [newDescription, setNewDescription] = useState();
+  const [newTask, setNewTask] = useState(false);
+  const [taskTitle, setTaskTitle] = useState();
+  const [taskDescription, setTaskDescription] = useState();
 
   useEffect(() => {
     if (currentUser) {
@@ -42,13 +63,35 @@ const FeaturePage = (props) => {
       return message.error("Title field must be completed.");
     }
     editFeature(projectId, featureId, newTitle, newDescription);
-    newTitle = null;
-    newDescription = null;
+    setNewTitle(null);
+    setNewDescription(null);
     setEdit(false);
   };
 
   const handleEditCancel = () => {
     setEdit(false);
+  };
+
+  const handleNewTaskClick = () => {
+    setNewTask(true);
+  };
+
+  const handleCompletedToggle = (prevCompleted) => {
+    markAsCompleted(projectId, featureId, prevCompleted);
+  };
+
+  const handleOk = () => {
+    if (!taskTitle) {
+      return message.error("Title field must be completed.");
+    }
+    createTask(projectId, featureId, taskTitle, taskDescription);
+    setTaskTitle(null);
+    setTaskDescription(null);
+    setNewTask(false);
+  };
+
+  const handleCancel = () => {
+    setNewTask(false);
   };
 
   if (!feature) {
@@ -105,14 +148,53 @@ const FeaturePage = (props) => {
           >
             <DeleteFilled id="delete" className="action" />
           </Popconfirm>
-          {/* <span className="add-ft-btn">
+          <span className="add-ft-btn">
             <PlusSquareOutlined
               id="add"
               className="action"
-              onClick={handleEdit}
+              onClick={handleNewTaskClick}
             />
-          </span> */}
+          </span>
+          <CheckOutlined
+            className={"check action " + (feature.completed ? "completed" : "")}
+            onClick={() => handleCompletedToggle(feature.completed)}
+          />
         </section>
+        {newTask && (
+          <Modal
+            title="Create New Task"
+            visible={newTask}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[
+              <Button key="back" onClick={handleCancel}>
+                Cancel
+              </Button>,
+              <Button key="submit" type="primary" onClick={handleOk}>
+                Add Task
+              </Button>,
+            ]}
+          >
+            <section>
+              <Input
+                className="project-input"
+                type="text"
+                value={taskTitle}
+                onChange={(e) => setTaskTitle(e.target.value)}
+                placeholder="Task Title"
+              />
+              <Input
+                className="project-input"
+                type="text"
+                value={taskDescription}
+                onChange={(e) => setTaskDescription(e.target.value)}
+                placeholder="Task Description"
+              />
+            </section>
+          </Modal>
+        )}
+
+        <Tasks projectId={projectId} featureId={featureId} />
       </Card>
     </section>
   );

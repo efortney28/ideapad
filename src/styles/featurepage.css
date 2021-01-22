@@ -36,6 +36,12 @@
   color: var(--green);
   font-weight: 500;
 }
+.check {
+  font-size: 1.5rem;
+}
+.completed {
+  color: var(--green) !important;
+}
 
 @media screen and (min-width: 1000px) {
   .feature-page {

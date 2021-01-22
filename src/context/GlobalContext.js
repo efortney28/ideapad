@@ -8,7 +8,7 @@ const GlobalProvider = (props) => {
   const { currentUser } = useAuth();
   const [projects, setProjects] = useState();
 
-  const createProject = async (title, description) => {
+  const createProject = async (title, description = null) => {
     try {
       await db
         .collection("users")
@@ -57,7 +57,6 @@ const GlobalProvider = (props) => {
             const proj = doc.data();
             proj.id = doc.id;
             projectList.push(proj);
-            console.log(proj);
           });
           setProjects(projectList);
         });
